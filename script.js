@@ -114,7 +114,9 @@ fetch('OpenDay.json')
 
             let filtered = topics.filter(topic => {
                 const matchTopic = topic.name.toLowerCase().includes(keyword);
-                const matchProgram = topic.program?.some(p => p.title.toLowerCase().includes(keyword));
+                const matchProgram = topic.programs?.some(p => p.title.toLowerCase().includes(keyword));
+                console.log(matchTopic);
+                console.log(matchProgram);
                 return matchTopic || matchProgram;
             });
 
