@@ -52,6 +52,25 @@ fetch('OpenDay.json')
             container.appendChild(title);
             container.appendChild(image);
             container.appendChild(desc);
+
+            // Each Programme Information
+            // Default: Display 3 programmes
+            topic.programs.slice(0, 3).forEach(program => {
+                const programDiv = document.createElement('div');
+                programDiv.className = 'program';
+
+                programDiv.innerHTML = `
+                  <div class="program-title">${program.title}</div>
+                  <div>${program.description_short}</div>
+                  <div><strong>Room:</strong> ${program.room}</div>
+                  <div><strong>Location:</strong> ${program.location?.title || 'N/A'}</div>
+                `;
+
+                content.appendChild(programDiv);
+            });
+            card.appendChild(image);
+            card.appendChild(content);
+            container.appendChild(card);
         });
     })
     .catch(error => {
