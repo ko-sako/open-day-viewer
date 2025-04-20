@@ -29,63 +29,67 @@ fetch('OpenDay.json')
         const topics = data.topics;
         const container = document.getElementById('topicsContainer');
 
-        topics.forEach(topic => {
-            const card = document.createElement('div');
-            card.className = 'topic-card';
+        function renderTopics(filteredTopics) {
+            container.innerHTML = '';
+            filteredTopics.forEach(topic => {
+                const card = document.createElement('div');
+                card.className = 'topic-card';
 
-            const image = document.createElement('img');
-            image.src = topic.cover_image;
-            image.alt = topic.name;
-            image.className = 'topic-image';
+                const image = document.createElement('img');
+                image.src = topic.cover_image;
+                image.alt = topic.name;
+                image.className = 'topic-image';
 
-            const content = document.createElement('div');
-            content.className = 'topic-content';
+                const content = document.createElement('div');
+                content.className = 'topic-content';
 
-            // School Name
-            const title = document.createElement('h2');
-            title.className = 'topic-title';
-            title.textContent = topic.name;
+                // School Name
+                const title = document.createElement('h2');
+                title.className = 'topic-title';
+                title.textContent = topic.name;
 
-            const desc = document.createElement('h3');
-            desc.textContent = topic.description;
+                const desc = document.createElement('h3');
+                desc.textContent = topic.description;
 
-            container.appendChild(title);
-            container.appendChild(image);
-            container.appendChild(desc);
+                container.appendChild(title);
+                container.appendChild(image);
+                container.appendChild(desc);
 
-            // Each Programme Information
-            // Default: Display 3 programmes
-            const programContainer = document.createElement('div');
-            programContainer.className = 'program-container';
+                // Each Programme Information
+                // Default: Display 3 programmes
+                const programContainer = document.createElement('div');
+                programContainer.className = 'program-container';
 
-            topic.programs.slice(0, 3).forEach(program => {
-                const programDiv = showProgramOverview(program);
-                programContainer.appendChild(programDiv);
-            });
-
-            // Load Programmes more than 3
-            if (topic.programs.length > 3) {
-                const showMoreBtn = document.createElement('button');
-                showMoreBtn.textContent = 'Show More';
-                showMoreBtn.className = 'show-more-btn';
-
-                showMoreBtn.addEventListener('click', () => {
-                    topic.programs.slice(3).forEach(program => {
-                        const programDiv = showProgramOverview(program);
-                        programContainer.appendChild(programDiv);
-                    });
-                    // Invisible 'Show More Programme' button after click
-                    showMoreBtn.style.display = 'none';
+                topic.programs.slice(0, 3).forEach(program => {
+                    const programDiv = showProgramOverview(program);
+                    programContainer.appendChild(programDiv);
                 });
-                programContainer.appendChild(showMoreBtn);
-            }
 
-            content.appendChild(programContainer);
+                // Load Programmes more than 3
+                if (topic.programs.length > 3) {
+                    const showMoreBtn = document.createElement('button');
+                    showMoreBtn.textContent = 'Show More';
+                    showMoreBtn.className = 'show-more-btn';
 
-            card.appendChild(image);
-            card.appendChild(content);
-            container.appendChild(card);
-        });
+                    showMoreBtn.addEventListener('click', () => {
+                        topic.programs.slice(3).forEach(program => {
+                            const programDiv = showProgramOverview(program);
+                            programContainer.appendChild(programDiv);
+                        });
+                        // Invisible 'Show More Programme' button after click
+                        showMoreBtn.style.display = 'none';
+                    });
+                    programContainer.appendChild(showMoreBtn);
+                }
+
+                content.appendChild(programContainer);
+
+                card.appendChild(image);
+                card.appendChild(content);
+                container.appendChild(card);
+            });
+        }
+
         // Display Programme Overview
         function showProgramOverview(program) {
             const programDiv = document.createElement('div');
@@ -103,6 +107,9 @@ fetch('OpenDay.json')
             });
             return programDiv;
         }
+        // Initial Display
+        renderTopics(topics);
+        
     })
     .catch(error => {
         console.error('Error loading JSON:', error);

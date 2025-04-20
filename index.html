@@ -10,6 +10,16 @@
     <h1 class="title">Event</h1>
     <div class="openDay-header" id="openDayHeader"></div>
 
+    <div class="controls">
+        <label for="searchInput" class="sr-only">Search School or Programme</label>
+        <input type="text" id="searchInput" placeholder="Search..." />
+        <label for="sortSelect" class="sr-only">Sort School Name</label>
+        <select id="sortSelect">
+            <option value="asc">Sort by A to Z</option>
+            <option value="desc">Sort by Z to A</option>
+        </select>
+    </div>
+
     <div class="cards-container" id="topicsContainer"></div>
     <script src="script.js"></script>
 </body>
