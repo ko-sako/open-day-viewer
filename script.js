@@ -71,21 +71,12 @@ fetch('OpenDay.json')
 
                 showMoreBtn.addEventListener('click', () => {
                     topic.programs.slice(3).forEach(program => {
-                        const programDiv = document.createElement('div');
-                        programDiv.className = 'program';
-
-                        programDiv.innerHTML = `
-                            <div class="program-title">${program.title}</div>
-                            <div>${program.description_short}</div>
-                            <div><strong>Room:</strong> ${program?.room || 'N/A'}</div>
-                            <div><strong>Location:</strong> ${program.location?.title || 'N/A'}</div>
-                        `;
-
+                        const programDiv = showProgramOverview(program);
                         programContainer.appendChild(programDiv);
                     });
-                    // Unvisible 'Show More Programme' button after click
+                    // Invisible 'Show More Programme' button after click
                     showMoreBtn.style.display = 'none';
-                })
+                });
                 programContainer.appendChild(showMoreBtn);
             }
 
