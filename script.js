@@ -29,63 +29,67 @@ fetch('OpenDay.json')
         const topics = data.topics;
         const container = document.getElementById('topicsContainer');
 
-        topics.forEach(topic => {
-            const card = document.createElement('div');
-            card.className = 'topic-card';
+        function renderTopics(filteredTopics) {
+            container.innerHTML = '';
+            filteredTopics.forEach(topic => {
+                const card = document.createElement('div');
+                card.className = 'topic-card';
 
-            const image = document.createElement('img');
-            image.src = topic.cover_image;
-            image.alt = topic.name;
-            image.className = 'topic-image';
+                const image = document.createElement('img');
+                image.src = topic.cover_image;
+                image.alt = topic.name;
+                image.className = 'topic-image';
 
-            const content = document.createElement('div');
-            content.className = 'topic-content';
+                const content = document.createElement('div');
+                content.className = 'topic-content';
 
-            // School Name
-            const title = document.createElement('h2');
-            title.className = 'topic-title';
-            title.textContent = topic.name;
+                // School Name
+                const title = document.createElement('h2');
+                title.className = 'topic-title';
+                title.textContent = topic.name;
 
-            const desc = document.createElement('h3');
-            desc.textContent = topic.description;
+                const desc = document.createElement('h3');
+                desc.textContent = topic.description;
 
-            container.appendChild(title);
-            container.appendChild(image);
-            container.appendChild(desc);
+                container.appendChild(title);
+                container.appendChild(image);
+                container.appendChild(desc);
 
-            // Each Programme Information
-            // Default: Display 3 programmes
-            const programContainer = document.createElement('div');
-            programContainer.className = 'program-container';
+                // Each Programme Information
+                // Default: Display 3 programmes
+                const programContainer = document.createElement('div');
+                programContainer.className = 'program-container';
 
-            topic.programs.slice(0, 3).forEach(program => {
-                const programDiv = showProgramOverview(program);
-                programContainer.appendChild(programDiv);
-            });
-
-            // Load Programmes more than 3
-            if (topic.programs.length > 3) {
-                const showMoreBtn = document.createElement('button');
-                showMoreBtn.textContent = 'Show More';
-                showMoreBtn.className = 'show-more-btn';
-
-                showMoreBtn.addEventListener('click', () => {
-                    topic.programs.slice(3).forEach(program => {
-                        const programDiv = showProgramOverview(program);
-                        programContainer.appendChild(programDiv);
-                    });
-                    // Invisible 'Show More Programme' button after click
-                    showMoreBtn.style.display = 'none';
+                topic.programs.slice(0, 3).forEach(program => {
+                    const programDiv = showProgramOverview(program);
+                    programContainer.appendChild(programDiv);
                 });
-                programContainer.appendChild(showMoreBtn);
-            }
 
-            content.appendChild(programContainer);
+                // Load Programmes more than 3
+                if (topic.programs.length > 3) {
+                    const showMoreBtn = document.createElement('button');
+                    showMoreBtn.textContent = 'Show More';
+                    showMoreBtn.className = 'show-more-btn';
 
-            card.appendChild(image);
-            card.appendChild(content);
-            container.appendChild(card);
-        });
+                    showMoreBtn.addEventListener('click', () => {
+                        topic.programs.slice(3).forEach(program => {
+                            const programDiv = showProgramOverview(program);
+                            programContainer.appendChild(programDiv);
+                        });
+                        // Invisible 'Show More Programme' button after click
+                        showMoreBtn.style.display = 'none';
+                    });
+                    programContainer.appendChild(showMoreBtn);
+                }
+
+                content.appendChild(programContainer);
+
+                card.appendChild(image);
+                card.appendChild(content);
+                container.appendChild(card);
+            });
+        }
+
         // Display Programme Overview
         function showProgramOverview(program) {
             const programDiv = document.createElement('div');
@@ -103,6 +107,34 @@ fetch('OpenDay.json')
             });
             return programDiv;
         }
+        // Search and Sort Function
+        function filterAndSortTopics() {
+            const keyword = searchInput.value.toLowerCase();
+            const sortOrder = sortSelect.value;
+
+            let filtered = topics.filter(topic => {
+                const matchTopic = topic.name.toLowerCase().includes(keyword);
+                const matchProgram = topic.programs?.some(p => p.title.toLowerCase().includes(keyword));
+                console.log(matchTopic);
+                console.log(matchProgram);
+                return matchTopic || matchProgram;
+            });
+
+            filtered.sort((a, b) => {
+                const nameA = a.name.toLowerCase();
+                const nameB = b.name.toLowerCase();
+                return sortOrder === 'asc' ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+            });
+
+            renderTopics(filtered);
+        }
+        // Add Event Listener to Search and Sort box.
+        searchInput.addEventListener('input', filterAndSortTopics);
+        sortSelect.addEventListener('change', filterAndSortTopics);
+
+        // Initial Display
+        renderTopics(topics);
+
     })
     .catch(error => {
         console.error('Error loading JSON:', error);
