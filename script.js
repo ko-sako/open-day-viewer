@@ -22,12 +22,12 @@ fetch('OpenDay.json')
         header.appendChild(eventDiscription);
         header.appendChild(eventTime);
         header.appendChild(eventCoverImageContainer);
-        
+
         eventCoverImageContainer.appendChild(eventCoverImage);
 
 
 
-        // School Information
+        // Each School Information
         const topics = data.topics;
         const container = document.getElementById('topicsContainer');
 
@@ -40,11 +40,19 @@ fetch('OpenDay.json')
             image.alt = topic.name;
             image.className = 'topic-image';
 
+            const content = document.createElement('div');
+            content.className = 'topic-content';
+
+            // School Name
+            const title = document.createElement('h2');
+            title.className = 'topic-title';
+            title.textContent = topic.name;
+
             const desc = document.createElement('h3');
             desc.textContent = topic.description;
 
+            container.appendChild(title);
             container.appendChild(image);
             container.appendChild(desc);
         });
-
     });
