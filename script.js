@@ -25,8 +25,6 @@ fetch('OpenDay.json')
 
         eventCoverImageContainer.appendChild(eventCoverImage);
 
-
-
         // Each School Information
         const topics = data.topics;
         const container = document.getElementById('topicsContainer');
@@ -55,4 +53,7 @@ fetch('OpenDay.json')
             container.appendChild(image);
             container.appendChild(desc);
         });
+    })
+    .catch(error => {
+        console.error('Error loading JSON:', error);
     });
