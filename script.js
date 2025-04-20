@@ -107,9 +107,32 @@ fetch('OpenDay.json')
             });
             return programDiv;
         }
+        // Search and Sort Function
+        function filterAndSortTopics() {
+            const keyword = searchInput.value.toLowerCase();
+            const sortOrder = sortSelect.value;
+
+            let filtered = topics.filter(topic => {
+                const matchTopic = topic.name.toLowerCase().includes(keyword);
+                const matchProgram = topic.program?.some(p => p.title.toLowerCase().includes(keyword));
+                return matchTopic || matchProgram;
+            });
+
+            filtered.sort((a, b) => {
+                const nameA = a.name.toLowerCase();
+                const nameB = b.name.toLowerCase();
+                return sortOrder === 'asc' ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+            });
+
+            renderTopics(filtered);
+        }
+        // Add Event Listener to Search and Sort box.
+        searchInput.addEventListener('input', filterAndSortTopics);
+        sortSelect.addEventListener('change', filterAndSortTopics);
+
         // Initial Display
         renderTopics(topics);
-        
+
     })
     .catch(error => {
         console.error('Error loading JSON:', error);
