@@ -15,8 +15,14 @@ fetch('OpenDay.json')
         eventDiscription.textContent = data.description;
         eventDiscription.className = 'event-description';
 
+        const eventTime = document.createElement('h3');
+        eventTime.textContent = `${data.start_time} - ${data.end_time}`;
+        eventTime.className = 'event-time'
+
         header.appendChild(eventDiscription);
+        header.appendChild(eventTime);
         header.appendChild(eventCoverImageContainer);
+        
         eventCoverImageContainer.appendChild(eventCoverImage);
 
 
