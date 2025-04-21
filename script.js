@@ -31,10 +31,13 @@ fetch('OpenDay.json')
 
         function renderTopics(filteredTopics) {
             container.innerHTML = '';
+
             filteredTopics.forEach(topic => {
                 const card = document.createElement('div');
                 card.className = 'topic-card';
 
+                const imageContainer = document.createElement('div');
+                imageContainer.className = 'topic-cover-container';
                 const image = document.createElement('img');
                 image.src = topic.cover_image;
                 image.alt = topic.name;
@@ -43,17 +46,15 @@ fetch('OpenDay.json')
                 const content = document.createElement('div');
                 content.className = 'topic-content';
 
-                // School Name
-                const title = document.createElement('h2');
+                const title = document.createElement('h4');
                 title.className = 'topic-title';
                 title.textContent = topic.name;
 
-                const desc = document.createElement('h3');
+                const desc = document.createElement('h5');
                 desc.textContent = topic.description;
 
-                container.appendChild(title);
-                container.appendChild(image);
-                container.appendChild(desc);
+                content.appendChild(title);
+                content.appendChild(desc);
 
                 // Each Programme Information
                 // Default: Display 3 programmes
@@ -82,10 +83,10 @@ fetch('OpenDay.json')
                     programContainer.appendChild(showMoreBtn);
                 }
 
-                content.appendChild(programContainer);
-
-                card.appendChild(image);
+                imageContainer.appendChild(image);
+                card.appendChild(imageContainer);
                 card.appendChild(content);
+                card.appendChild(programContainer);
                 container.appendChild(card);
             });
         }
