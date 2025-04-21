@@ -179,16 +179,14 @@ fetch('OpenDay.json')
 
             renderTopics(filtered);
         }
-
         // Add Event Listener to Search and Sort box.
         searchInput.addEventListener('input', filterAndSortTopics);
         sortSelect.addEventListener('change', filterAndSortTopics);
         searchCategory.addEventListener('change', filterAndSortTopics);
 
-
         // Initial Display
         renderTopics(topics);
-
+        
     })
     .catch(error => {
         console.error('Error loading JSON:', error);
