@@ -19,7 +19,7 @@ fetch('OpenDay.json')
         eventTime.textContent = `${data.start_time} - ${data.end_time}`;
         eventTime.className = 'event-time'
 
-        header.appendChild(eventDiscription);
+        header.appendChild(eventDescription);
         header.appendChild(eventTime);
         header.appendChild(eventCoverImageContainer);
 
@@ -138,6 +138,13 @@ fetch('OpenDay.json')
                 <p> ${program.location?.address || 'Location address N/A'}, ${program.location?.postcode || 'Location Postcode N/A'}</p>
                 <p>${mapLink}</p>
             `;
+
+            overlay.classList.remove('hidden');
+
+            // Close Overlay
+            closeBtn.onclick = () => {
+                overlay.classList.add('hidden');
+            };
         }
 
         // Search and Sort Function
