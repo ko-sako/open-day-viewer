@@ -16,7 +16,7 @@ fetch('OpenDay.json')
         eventDescription.className = 'event-description';
 
         const eventTime = document.createElement('h3');
-        eventTime.textContent = `${data.start_time} - ${data.end_time}`;
+        eventTime.textContent = formatDateRange(data.start_time, data.end_time);
         eventTime.className = 'event-time'
 
         header.appendChild(eventDescription);
@@ -96,10 +96,12 @@ fetch('OpenDay.json')
             const programDiv = document.createElement('div');
             programDiv.className = 'program';
 
+            const dateTimeStr = formatTimeRange(program.start_time, program.end_time);
+
             programDiv.innerHTML = `
                 <div class="program-title"><strong>${program.title}</strong></div>
                 <div>${program.description_short}</div>
-                <div><strong>Time:</strong> ${program.start_time} - ${program.end_time} </div>
+                <div><strong>Time:</strong> ${dateTimeStr}</div>
                 <div><strong>Room:</strong> ${program?.room || 'N/A'}</div>
                 <div><strong>Building:</strong> ${program.location?.title || 'N/A'}</div>
             `;
@@ -129,9 +131,11 @@ fetch('OpenDay.json')
                 ? `<img src=${program.location.cover_image} alt="A photo of the building where the program will be held">`
                 : '';
 
+            const dateTimeStr = formatDateRange(program.start_time, program.end_time);
+
             details.innerHTML = `
                 <h2>${program.title}</h2>               
-                <p><strong>Time:</strong> ${program.start_time} - ${program.end_time}</p>
+                <p><strong>Time:</strong> ${dateTimeStr}</p>
                 <p><strong>Description:</strong> ${program.description}</p>
                 <p><strong>Room:</strong> ${program.room || 'Programme room N/A'}</p>
                 <p><strong>Location:</strong> ${locationWebsite}</p>
@@ -185,6 +189,54 @@ fetch('OpenDay.json')
         searchInput.addEventListener('input', filterAndSortTopics);
         sortSelect.addEventListener('change', filterAndSortTopics);
         searchCategory.addEventListener('change', filterAndSortTopics);
+
+        // Data Range Formatting
+        function formatDateRange(startTimeDate, endTimeDate) {
+            const startDate = new Date(startTimeDate);
+            const endDate = new Date(endTimeDate);
+
+            const optionDate = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+
+            const optionTime = {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+            };
+
+            const startDateStr = startDate.toLocaleDateString('en-UK', optionDate);
+            const startTimeStr = startDate.toLocaleTimeString('en-UK', optionTime);
+            const endDateStr = endDate.toLocaleDateString('en-UK', optionDate);
+            const endTimeStr = endDate.toLocaleTimeString('en-UK', optionTime);
+
+            // Check if dates are the same day or not
+            if (startDateStr === endDateStr) {
+                return `${startDateStr}, ${startTimeStr} - ${endTimeStr}`;
+            } else {
+                return `${startDateStr}, ${startTimeStr} - ${endDateStr}, ${endTimeStr}`;
+            }
+        }
+
+        // Time Only Range Formatting
+        function formatTimeRange(startTimeDate, endTimeDate) {
+            const startDate = new Date(startTimeDate);
+            const endDate = new Date(endTimeDate);
+
+            const optionTime = {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+            };
+
+            const startTimeStr = startDate.toLocaleTimeString('en-UK', optionTime);
+            const endTimeStr = endDate.toLocaleTimeString('en-UK', optionTime);
+
+            return `${startTimeStr} - ${endTimeStr}`;
+        }
 
         // Initial Display
         renderTopics(topics);

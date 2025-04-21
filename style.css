@@ -90,8 +90,8 @@ body {
 
 .topic-content {
     font-size: 1.5rem;
-    font-weight: 700;
-    color: red;
+    font-weight: 900;
+    color: #363636;
     margin: 0 1rem;
 }
 
@@ -112,7 +112,7 @@ body {
 }
 
 .program-title {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: blue;
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #363636;
 }
