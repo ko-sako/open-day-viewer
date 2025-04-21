@@ -11,9 +11,9 @@ fetch('OpenDay.json')
         eventCoverImage.alt = 'Open Day Cover Image';
         eventCoverImage.className = 'event-cover';
 
-        const eventDiscription = document.createElement('h2');
-        eventDiscription.textContent = data.description;
-        eventDiscription.className = 'event-description';
+        const eventDescription = document.createElement('h2');
+        eventDescription.textContent = data.description;
+        eventDescription.className = 'event-description';
 
         const eventTime = document.createElement('h3');
         eventTime.textContent = `${data.start_time} - ${data.end_time}`;
@@ -63,8 +63,6 @@ fetch('OpenDay.json')
                 topic.programs.slice(0, 3).forEach(program => {
                     const programDiv = showProgramOverview(program);
                     programContainer.appendChild(programDiv);
-
-
                 });
 
                 // Load Programmes more than 3
@@ -92,50 +90,56 @@ fetch('OpenDay.json')
             });
         }
 
-        // Display Programme Overview
+        // Display Programme Overview Function
         function showProgramOverview(program) {
             const programDiv = document.createElement('div');
             programDiv.className = 'program';
 
             programDiv.innerHTML = `
-                      <div class="program-title"><strong>${program.title}</strong></div>
-                      <div>${program.description_short}</div>
-                      <div><strong>Room:</strong> ${program?.room || 'N/A'}</div>
-                      <div><strong>Location:</strong> ${program.location?.title || 'N/A'}</div>
-                    `;
+              <div class="program-title"><strong>${program.title}</strong></div>
+              <div>${program.description_short}</div>
+              <div><strong>Room:</strong> ${program?.room || 'N/A'}</div>
+              <div><strong>Location:</strong> ${program.location?.title || 'N/A'}</div>
+            `;
+
             // Display Programme Detail
             programDiv.addEventListener('click', () => {
-                const overlay = document.getElementById('programOverlay');
-                const details = document.getElementById('overlayDetails');
-                const closeBtn = document.getElementById('closeOverlay');
-
-                const mapLink = program.location?.latitude && program.location?.longitude
-                    ? `<a href="https://maps.google.com/maps?ll=${program.location.latitude},${program.location.longitude}&z=17&q=${program.location.latitude},${program.location.longitude}" target="_blank">Open in Google Maps</a>`
-                    : 'Location info not available';
-
-                const locationWebsite = program.location?.website
-                    ? `<a href=${program.location.website} target="_blank">${program.location?.title || 'Building Information'}</a>`
-                    : '';
-
-                const locationImage = program.location?.cover_image
-                    ? `<img src=${program.location.cover_image} alt="A photo of the building where the program will be held">`
-                    : '';
-
-                details.innerHTML = `
-                            <h2>${program.title}</h2>               
-                            <p><strong>Time:</strong> ${program.start_time} - ${program.end_time}</p>
-                            <p><strong>Description:</strong> ${program.description}</p>
-                            <p><strong>Room:</strong> ${program.room || 'Programme room N/A'}</p>
-                            <p><strong>Location:</strong> ${locationWebsite}</p>
-                            <p>${locationImage}</p>
-                            <p> ${program.location?.description || 'Location Description N/A'}</p>
-                            <p> ${program.location?.address || 'Location address N/A'}</p>
-                            <p> ${program.location?.postcode || 'Location Postcode N/A'}</p>
-                            <p>${mapLink}</p>
-                        `;
+                showProgramDetail(program);
             });
             return programDiv;
         }
+
+        // Display Programme Detail Function
+        function showProgramDetail(program) {
+            const overlay = document.getElementById('programOverlay');
+            const details = document.getElementById('overlayDetails');
+            const closeBtn = document.getElementById('closeOverlay');
+
+            const mapLink = program.location?.latitude && program.location?.longitude
+                ? `<a href="https://maps.google.com/maps?ll=${program.location.latitude},${program.location.longitude}&z=17&q=${program.location.latitude},${program.location.longitude}" target="_blank">Open in Google Maps</a>`
+                : 'Location info not available';
+
+            const locationWebsite = program.location?.website
+                ? `<a href=${program.location.website} target="_blank">${program.location?.title || 'Building Information'}</a>`
+                : '';
+
+            const locationImage = program.location?.cover_image
+                ? `<img src=${program.location.cover_image} alt="A photo of the building where the program will be held">`
+                : '';
+
+            details.innerHTML = `
+                <h2>${program.title}</h2>               
+                <p><strong>Time:</strong> ${program.start_time} - ${program.end_time}</p>
+                <p><strong>Description:</strong> ${program.description}</p>
+                <p><strong>Room:</strong> ${program.room || 'Programme room N/A'}</p>
+                <p><strong>Location:</strong> ${locationWebsite}</p>
+                <p>${locationImage}</p>
+                <p> ${program.location?.description || 'Location Description N/A'}</p>
+                <p> ${program.location?.address || 'Location address N/A'}, ${program.location?.postcode || 'Location Postcode N/A'}</p>
+                <p>${mapLink}</p>
+            `;
+        }
+
         // Search and Sort Function
         function filterAndSortTopics() {
             const keyword = searchInput.value.toLowerCase();
