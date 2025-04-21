@@ -63,3 +63,13 @@ body {
     object-position: center;
     display: block;
 }
+
+.openDay-header {
+    width: 100%;
+    font-size: 1.25rem;
+}
+
+.event-description,
+.event-time {
+    padding: 0 1rem;
+}
