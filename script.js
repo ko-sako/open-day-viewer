@@ -83,9 +83,9 @@ fetch('OpenDay.json')
                     programContainer.appendChild(showMoreBtn);
                 }
 
+                card.appendChild(content);
                 imageContainer.appendChild(image);
                 card.appendChild(imageContainer);
-                card.appendChild(content);
                 card.appendChild(programContainer);
                 container.appendChild(card);
             });
