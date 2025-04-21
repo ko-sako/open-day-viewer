@@ -53,7 +53,6 @@ body {
     width: 100%;
     aspect-ratio: 16 / 5;
     overflow: hidden;
-    background-color: red;
 }
 
 .event-cover-container img {
