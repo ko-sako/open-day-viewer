@@ -110,3 +110,9 @@ body {
 .program:nth-child(2n) {
     background: #f8f8f8;
 }
+
+.program-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: blue;
+}
