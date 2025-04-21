@@ -128,7 +128,7 @@ fetch('OpenDay.json')
                 : '';
 
             const locationImage = program.location?.cover_image
-                ? `<img src=${program.location.cover_image} alt="A photo of the building where the program will be held">`
+                ? `<img src=${encodeURI(program.location.cover_image)} alt="A photo of the building where the program will be held">`
                 : '';
 
             const dateTimeStr = formatDateRange(program.start_time, program.end_time);
