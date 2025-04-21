@@ -158,3 +158,18 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     cursor: pointer;
 }
+
+.location-image-container {
+    width: 600px;
+    aspect-ratio: 16 / 5;
+    overflow: hidden;
+    background-color: red;
+}
+
+.location-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}

@@ -142,8 +142,8 @@ fetch('OpenDay.json')
                 <p><strong>Time:</strong> ${dateTimeStr}</p>
                 <p><strong>Description:</strong> ${program.description}</p>
                 <p><strong>Room:</strong> ${program.room || 'Programme room N/A'}</p>
-                <p><strong>Location:</strong> ${locationWebsite}</p>
-                <p>${locationImage}</p>
+                <p><strong>Building:</strong> ${locationWebsite}</p>
+                <div class="location-image-container">${locationImage}</div>
                 <p> ${program.location?.description || 'Location Description N/A'}</p>
                 <p> ${program.location?.address || 'Location address N/A'}, ${program.location?.postcode || 'Location Postcode N/A'}</p>
                 <p>${mapLink}</p>
