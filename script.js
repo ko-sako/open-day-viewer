@@ -50,7 +50,7 @@ fetch('OpenDay.json')
                 title.className = 'topic-title';
                 title.textContent = topic.name;
 
-                const desc = document.createElement('p');
+                const desc = document.createElement('h5');
                 desc.textContent = topic.description;
 
                 content.appendChild(title);
