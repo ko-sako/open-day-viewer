@@ -16,7 +16,7 @@ fetch('OpenDay.json')
         eventDescription.className = 'event-description';
 
         const eventTime = document.createElement('h3');
-        eventTime.textContent = `${data.start_time} - ${data.end_time}`;
+        eventTime.textContent = formatDateRange(data.start_time, data.end_time);
         eventTime.className = 'event-time'
 
         header.appendChild(eventDescription);
@@ -185,6 +185,37 @@ fetch('OpenDay.json')
         searchInput.addEventListener('input', filterAndSortTopics);
         sortSelect.addEventListener('change', filterAndSortTopics);
         searchCategory.addEventListener('change', filterAndSortTopics);
+
+        // Data Range Formatting
+        function formatDateRange(startTimeDate, endTimeDate) {
+            const startDate = new Date(startTimeDate);
+            const endDate = new Date(endTimeDate);
+
+            const optionDate = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+
+            const optionTime = {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+            };
+
+            const startDateStr = startDate.toLocaleDateString('en-UK', optionDate);
+            const startTimeStr = startDate.toLocaleTimeString('en-UK', optionTime);
+            const endDateStr = endDate.toLocaleDateString('en-UK', optionDate);
+            const endTimeStr = endDate.toLocaleTimeString('en-UK', optionTime);
+
+            // Check if dates are the same day or not
+            if (startDateStr === endDateStr) {
+                return `${startDateStr}, ${startTimeStr} - ${endTimeStr}`;
+            } else {
+                return `${startDateStr}, ${startTimeStr} - ${endDateStr}, ${endTimeStr}`;
+            }
+        }
 
         // Initial Display
         renderTopics(topics);
