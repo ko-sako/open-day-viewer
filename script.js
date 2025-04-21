@@ -97,10 +97,11 @@ fetch('OpenDay.json')
             programDiv.className = 'program';
 
             programDiv.innerHTML = `
-              <div class="program-title"><strong>${program.title}</strong></div>
-              <div>${program.description_short}</div>
-              <div><strong>Room:</strong> ${program?.room || 'N/A'}</div>
-              <div><strong>Location:</strong> ${program.location?.title || 'N/A'}</div>
+                <div class="program-title"><strong>${program.title}</strong></div>
+                <div>${program.description_short}</div>
+                <div><strong>Time:</strong> ${program.start_time} - ${program.end_time} </div>
+                <div><strong>Room:</strong> ${program?.room || 'N/A'}</div>
+                <div><strong>Building:</strong> ${program.location?.title || 'N/A'}</div>
             `;
 
             // Display Programme Detail
