@@ -149,15 +149,26 @@ fetch('OpenDay.json')
 
         // Search and Sort Function
         function filterAndSortTopics() {
-            const keyword = searchInput.value.toLowerCase();
-            const sortOrder = sortSelect.value;
+            const keyword = document.getElementById('searchInput').value.toLowerCase();
+            const sortOrder = document.getElementById('sortSelect').value;
+            const category = document.getElementById('searchCategory').value;
 
             let filtered = topics.filter(topic => {
                 const matchTopic = topic.name.toLowerCase().includes(keyword);
                 const matchProgram = topic.programs?.some(p => p.title.toLowerCase().includes(keyword));
                 console.log(matchTopic);
                 console.log(matchProgram);
-                return matchTopic || matchProgram;
+
+                if (category === 'both') {
+                    // Search Both School Name and Programme Name
+                    return matchTopic || matchProgram;
+                } else if (category === 'topic') {
+                    // Search School Name
+                    return matchTopic;
+                } else {
+                    // Search Programme Name
+                    return matchProgram;
+                }
             });
 
             filtered.sort((a, b) => {
@@ -171,10 +182,11 @@ fetch('OpenDay.json')
         // Add Event Listener to Search and Sort box.
         searchInput.addEventListener('input', filterAndSortTopics);
         sortSelect.addEventListener('change', filterAndSortTopics);
+        searchCategory.addEventListener('change', filterAndSortTopics);
 
         // Initial Display
         renderTopics(topics);
-
+        
     })
     .catch(error => {
         console.error('Error loading JSON:', error);
