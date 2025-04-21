@@ -129,9 +129,11 @@ fetch('OpenDay.json')
                 ? `<img src=${program.location.cover_image} alt="A photo of the building where the program will be held">`
                 : '';
 
+            const dateTimeStr = formatDateRange(program.start_time, program.end_time);
+
             details.innerHTML = `
                 <h2>${program.title}</h2>               
-                <p><strong>Time:</strong> ${program.start_time} - ${program.end_time}</p>
+                <p><strong>Time:</strong> ${dateTimeStr}</p>
                 <p><strong>Description:</strong> ${program.description}</p>
                 <p><strong>Room:</strong> ${program.room || 'Programme room N/A'}</p>
                 <p><strong>Location:</strong> ${locationWebsite}</p>
