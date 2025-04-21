@@ -144,3 +144,17 @@ body {
     border: 1px solid #CCC;
     border-radius: 6px;
 }
+
+.show-more-btn {
+    background-color: #C9C2BA;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    margin-left: 1.5rem;
+    padding: 0.4rem 1.0rem;
+}
+
+.show-more-btn:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+}
