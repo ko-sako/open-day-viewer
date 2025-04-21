@@ -96,10 +96,12 @@ fetch('OpenDay.json')
             const programDiv = document.createElement('div');
             programDiv.className = 'program';
 
+            const dateTimeStr = formatTimeRange(program.start_time, program.end_time);
+
             programDiv.innerHTML = `
                 <div class="program-title"><strong>${program.title}</strong></div>
                 <div>${program.description_short}</div>
-                <div><strong>Time:</strong> ${program.start_time} - ${program.end_time} </div>
+                <div><strong>Time:</strong> ${dateTimeStr}</div>
                 <div><strong>Room:</strong> ${program?.room || 'N/A'}</div>
                 <div><strong>Building:</strong> ${program.location?.title || 'N/A'}</div>
             `;
@@ -217,6 +219,23 @@ fetch('OpenDay.json')
             } else {
                 return `${startDateStr}, ${startTimeStr} - ${endDateStr}, ${endTimeStr}`;
             }
+        }
+
+        // Time Only Range Formatting
+        function formatTimeRange(startTimeDate, endTimeDate) {
+            const startDate = new Date(startTimeDate);
+            const endDate = new Date(endTimeDate);
+
+            const optionTime = {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+            };
+
+            const startTimeStr = startDate.toLocaleTimeString('en-UK', optionTime);
+            const endTimeStr = endDate.toLocaleTimeString('en-UK', optionTime);
+
+            return `${startTimeStr} - ${endTimeStr}`;
         }
 
         // Initial Display
