@@ -48,3 +48,27 @@ body {
 .hidden {
     display: none;
 }
+
+.event-cover-container {
+    width: 100%;
+    aspect-ratio: 16 / 5;
+    overflow: hidden;
+}
+
+.event-cover-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+.openDay-header {
+    width: 100%;
+    font-size: 1.25rem;
+}
+
+.event-description,
+.event-time {
+    padding: 0 1rem;
+}

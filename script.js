@@ -186,7 +186,7 @@ fetch('OpenDay.json')
 
         // Initial Display
         renderTopics(topics);
-        
+
     })
     .catch(error => {
         console.error('Error loading JSON:', error);
