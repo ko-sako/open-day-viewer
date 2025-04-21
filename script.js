@@ -63,6 +63,8 @@ fetch('OpenDay.json')
                 topic.programs.slice(0, 3).forEach(program => {
                     const programDiv = showProgramOverview(program);
                     programContainer.appendChild(programDiv);
+
+
                 });
 
                 // Load Programmes more than 3
@@ -103,7 +105,34 @@ fetch('OpenDay.json')
                     `;
             // Display Programme Detail
             programDiv.addEventListener('click', () => {
-                showProgramDetail(program);
+                const overlay = document.getElementById('programOverlay');
+                const details = document.getElementById('overlayDetails');
+                const closeBtn = document.getElementById('closeOverlay');
+
+                const mapLink = program.location?.latitude && program.location?.longitude
+                    ? `<a href="https://maps.google.com/maps?ll=${program.location.latitude},${program.location.longitude}&z=17&q=${program.location.latitude},${program.location.longitude}" target="_blank">Open in Google Maps</a>`
+                    : 'Location info not available';
+
+                const locationWebsite = program.location?.website
+                    ? `<a href=${program.location.website} target="_blank">${program.location?.title || 'Building Information'}</a>`
+                    : '';
+
+                const locationImage = program.location?.cover_image
+                    ? `<img src=${program.location.cover_image} alt="A photo of the building where the program will be held">`
+                    : '';
+
+                details.innerHTML = `
+                            <h2>${program.title}</h2>               
+                            <p><strong>Time:</strong> ${program.start_time} - ${program.end_time}</p>
+                            <p><strong>Description:</strong> ${program.description}</p>
+                            <p><strong>Room:</strong> ${program.room || 'Programme room N/A'}</p>
+                            <p><strong>Location:</strong> ${locationWebsite}</p>
+                            <p>${locationImage}</p>
+                            <p> ${program.location?.description || 'Location Description N/A'}</p>
+                            <p> ${program.location?.address || 'Location address N/A'}</p>
+                            <p> ${program.location?.postcode || 'Location Postcode N/A'}</p>
+                            <p>${mapLink}</p>
+                        `;
             });
             return programDiv;
         }
