@@ -119,6 +119,10 @@ fetch('OpenDay.json')
             const details = document.getElementById('overlayDetails');
             const closeBtn = document.getElementById('closeOverlay');
 
+            const programCoverImage = program?.cover_image
+                ? `<img src=${encodeURI(program.cover_image)} alt="A cover image of the programme">`
+                : '';
+
             const mapLink = program.location?.latitude && program.location?.longitude
                 ? `<a href="https://maps.google.com/maps?ll=${program.location.latitude},${program.location.longitude}&z=17&q=${program.location.latitude},${program.location.longitude}" target="_blank">Open in Google Maps</a>`
                 : 'Location info not available';
@@ -128,7 +132,7 @@ fetch('OpenDay.json')
                 : '';
 
             const locationImage = program.location?.cover_image
-                ? `<img src=${program.location.cover_image} alt="A photo of the building where the program will be held">`
+                ? `<img src=${encodeURI(program.location.cover_image)} alt="A photo of the building where the program will be held">`
                 : '';
 
             const dateTimeStr = formatDateRange(program.start_time, program.end_time);
