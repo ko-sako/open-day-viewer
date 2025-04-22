@@ -173,3 +173,7 @@ body {
     object-position: center;
     display: block;
 }
+
+.program-container .added-program {
+    background-color: red;
+}

@@ -75,6 +75,10 @@ fetch('OpenDay.json')
                     showMoreBtn.addEventListener('click', () => {
                         topic.programs.slice(3).forEach(program => {
                             const programDiv = showProgramOverview(program);
+
+                            // Distinguish programme cards added in Show More button from existing classes
+                            programDiv.classList.add('added-program');
+
                             programContainer.appendChild(programDiv);
                         });
                         // Invisible 'Show More Programme' button after click
