@@ -173,3 +173,11 @@ body {
     object-position: center;
     display: block;
 }
+
+.program-container .added-program:nth-child(2n+1) {
+    background: #f8f8f8;
+}
+
+.program-container .added-program:nth-child(2n) {
+    background-color: transparent;
+}
