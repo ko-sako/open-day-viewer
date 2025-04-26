@@ -145,6 +145,10 @@ fetch('OpenDay.json')
                 <h2>${program.title}</h2>               
                 <p><strong>Time:</strong> ${dateTimeStr}</p>
                 <p><strong>Description:</strong> ${program.description}</p>
+                <p>
+                    ${program?.floor ? `<strong>Floor:</strong> ${program.floor}`
+                    : ''}
+                </p>
                 <p><strong>Room:</strong> ${program.room || 'Information not available'}</p>
                 <p><strong>Building:</strong> ${locationWebsite}</p>
                 <div class="location-image-container">${locationImage}</div>
