@@ -156,9 +156,13 @@ fetch('OpenDay.json')
             overlay.classList.remove('hidden');
 
             // Close Overlay
-            closeBtn.onclick = () => {
+            closeBtn.onclick = () => closeOverlay();
+            overlay.onclick = () => closeOverlay();
+
+            // Add event listener to a function that adds the 'hidden' class
+            function closeOverlay() {
                 overlay.classList.add('hidden');
-            };
+            }
         }
 
         // Search and Sort Function
