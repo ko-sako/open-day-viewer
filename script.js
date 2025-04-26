@@ -159,6 +159,9 @@ fetch('OpenDay.json')
             closeBtn.onclick = () => {
                 overlay.classList.add('hidden');
             };
+            overlay.onclick = () => {
+                overlay.classList.add('hidden');
+            };
         }
 
         // Search and Sort Function
