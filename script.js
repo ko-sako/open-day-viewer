@@ -149,7 +149,10 @@ fetch('OpenDay.json')
                 <p><strong>Building:</strong> ${locationWebsite}</p>
                 <div class="location-image-container">${locationImage}</div>
                 <p> ${program.location?.description || ''}</p>
-                <p> ${program.location?.address || ''}, ${program.location?.postcode || ''}</p>
+                <p>
+                    ${program.location?.address ? `${program.location.address}, ${program.location?.postcode || ''}`
+                    : program.location?.postcode || ''}
+                </p>
                 <p>${mapLink}</p>
             `;
 
