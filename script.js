@@ -106,8 +106,8 @@ fetch('OpenDay.json')
                 <div class="program-title"><strong>${program.title}</strong></div>
                 <div>${program.description_short}</div>
                 <div><strong>Time:</strong> ${dateTimeStr}</div>
-                <div><strong>Room:</strong> ${program?.room || 'N/A'}</div>
-                <div><strong>Building:</strong> ${program.location?.title || 'N/A'}</div>
+                <div><strong>Room:</strong> ${program?.room || 'Information not available' }</div>
+                <div><strong>Building:</strong> ${program.location?.title || 'Information not available' }</div>
             `;
 
             // Display Programme Detail
@@ -129,11 +129,11 @@ fetch('OpenDay.json')
 
             const mapLink = program.location?.latitude && program.location?.longitude
                 ? `<a href="https://maps.google.com/maps?ll=${program.location.latitude},${program.location.longitude}&z=17&q=${program.location.latitude},${program.location.longitude}" target="_blank">Open in Google Maps</a>`
-                : 'Location info not available';
+                : '';
 
             const locationWebsite = program.location?.website
                 ? `<a href=${program.location.website} target="_blank">${program.location?.title || 'Building Information'}</a>`
-                : '';
+                : 'Information not available';
 
             const locationImage = program.location?.cover_image
                 ? `<img src=${encodeURI(program.location.cover_image)} alt="A photo of the building where the program will be held">`
@@ -145,11 +145,18 @@ fetch('OpenDay.json')
                 <h2>${program.title}</h2>               
                 <p><strong>Time:</strong> ${dateTimeStr}</p>
                 <p><strong>Description:</strong> ${program.description}</p>
-                <p><strong>Room:</strong> ${program.room || 'Programme room N/A'}</p>
+                <p>
+                    ${program?.floor ? `<strong>Floor:</strong> ${program.floor}`
+                    : ''}
+                </p>
+                <p><strong>Room:</strong> ${program.room || 'Information not available'}</p>
                 <p><strong>Building:</strong> ${locationWebsite}</p>
                 <div class="location-image-container">${locationImage}</div>
-                <p> ${program.location?.description || 'Location Description N/A'}</p>
-                <p> ${program.location?.address || 'Location address N/A'}, ${program.location?.postcode || 'Location Postcode N/A'}</p>
+                <p> ${program.location?.description || ''}</p>
+                <p>
+                    ${program.location?.address ? `${program.location.address}, ${program.location?.postcode || ''}`
+                    : program.location?.postcode || ''}
+                </p>
                 <p>${mapLink}</p>
             `;
 
